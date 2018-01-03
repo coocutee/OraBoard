@@ -50,7 +50,7 @@ public class BoardController {
 		//브라우저까지는 전송되지만 uri에는 보이지 않는 숨겨진 형태로 전송!
 		rttr.addFlashAttribute("msg","success");
 		
-		return "redirect:/board/listAll";
+		return "redirect:/board/listPage";
 	}
 	
 	@RequestMapping(value = "/listAll", method = RequestMethod.GET)
@@ -93,25 +93,31 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value = "/modify", method = RequestMethod.POST)
-	public String modifyPOST( BoardVO board, RedirectAttributes rttr) throws Exception{
+	public String modifyPOST( BoardVO board, Criteria cri, RedirectAttributes rttr) throws Exception{
 		
 		service.modify(board);
-		rttr.addFlashAttribute("msg","modify");
+		
+		rttr.addFlashAttribute("page",cri.getPage());
+		rttr.addFlashAttribute("perPageNum",cri.getPerPageNum());
+		rttr.addFlashAttribute("msg","SUCCESS");
 		
 		logger.info("modify complete");
 		
-		return "redirect:/board/listAll";
+		return "redirect:/board/listPage";
 	}
 	
 	
 	@RequestMapping(value = "/remove", method = RequestMethod.POST)
-	public String removePOST( @RequestParam("bno") Integer bno, RedirectAttributes rttr) throws Exception{
+	public String removePOST( @RequestParam("bno") Integer bno, Criteria cri, RedirectAttributes rttr) throws Exception{
 		
 	
 		service.remove(bno);
-		rttr.addFlashAttribute("msg","remove");
+		rttr.addFlashAttribute("page", cri.getPage());
+		rttr.addFlashAttribute("perPageNum",cri.getPerPageNum());
+		rttr.addFlashAttribute("msg","SUCCESS");
 		
-		return "redirect:/board/listAll";
+		
+		return "redirect:/board/listPage";
 	}
 	
 }

@@ -57,7 +57,7 @@ public class BoardTest {
 	public void page()throws Exception{
 
 		Criteria cri = new Criteria();
-		cri.setPage(2);
+		cri.setPage(1);
 		cri.setPerPageNum(10);
 		
 		System.out.println("¿Ö");

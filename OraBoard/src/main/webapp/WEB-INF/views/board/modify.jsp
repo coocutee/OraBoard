@@ -14,6 +14,10 @@
 
 <form id="modify" method="post"> 
 
+<input type="hidden" name="page" value="${cri.page}">
+<input type="hidden" name="perPageNum" value="${cri.perPageNum}">
+<input type="hidden" name="bno" value="${boardVO.bno}">
+
 닉네임 : ${boardVO.nick}
 <div class="mod">  
 
@@ -24,9 +28,31 @@
 
 </div>
 
-<button type="submit"> 수정하기 </button>
+<div>
+<button type="submit" class="btn_can"> 취소하기 </button>
+<button type="submit" class="btn_com"> 수정하기 </button>
+</div>
 
 </form>
+
+<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+
+	<script>
+	
+	$(document).ready(function(){
+		
+		$(".btn_can").on("click",function(){
+			self.location = "board/listPage?page=${cri.page}&perPage=Num=${cri.perPageNum}";
+		});
+		
+		$(".btn_com").on("click",function(){
+			$("#modify").submit();
+		});
+		
+	});
+	
+	
+	</script>
 
 </body>
 </html>

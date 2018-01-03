@@ -63,7 +63,7 @@
 		  
 		  )
 		where rn > (#{page, jdbcType=INTEGER} -1) * #{perPageNum, jdbcType=INTEGER}
-		order by bno desc, regdate desc
+		order by bno desc
 		 ]]>
 		
 <!-- 		<![CDATA[ -->

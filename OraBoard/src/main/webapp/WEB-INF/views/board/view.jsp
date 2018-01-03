@@ -55,7 +55,7 @@
 		
 		//목록버튼 이벤트
 		$(".btn_list").on("click",function(){
-			self.location = "/board/listAll";
+			self.location = "/board/listPage";
 		});
 		
 		
