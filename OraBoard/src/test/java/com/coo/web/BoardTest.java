@@ -25,13 +25,23 @@ public class BoardTest {
 	@Test
 	public void create()throws Exception{
 		BoardVO vo = new BoardVO();
-		vo.setContent("내용이당");
+		vo.setContent("안");
 		vo.setNick("쿠키");
 		vo.setTitle("제목");
 		vo.setPw("비번");
 		
 		service.register(vo);
 		//dao.create(vo);
+	}
+	
+	@Test
+	public void listAll()throws Exception{
+		System.out.println(service.listAll());
+	}
+	
+	@Test
+	public void read() throws Exception{
+		System.out.println(dao.read(2));
 	}
 
 }
