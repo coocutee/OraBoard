@@ -16,6 +16,8 @@
 <form id="FormObj" method="post"> 
 
 <input type="hidden" name="bno" value="${boardVO.bno}"> 
+<input type="hidden" name="page" value="${cri.page}"> 
+<input type="hidden" name="perPageNum" value="${cri.perPageNum}"> 
 
 Á¦¸ñ : ${boardVO.title}
 <p>

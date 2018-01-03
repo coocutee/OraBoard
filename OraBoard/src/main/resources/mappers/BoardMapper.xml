@@ -48,7 +48,23 @@
 		]]>
 	</select>
 	
-<!-- 	<select id="listPage" resultType="BoardVO"> -->
+	<select id="listPage" resultType="BoardVO">
+	
+			 <![CDATA[
+		select
+		  bno, title, content, nick, viewcnt, regdate
+		from
+		  (
+		  select
+		    rownum rn, bno, title, content, nick, viewcnt, regdate
+		  from tbl_board
+		  where rownum <= #{page, jdbcType=INTEGER} * #{perPageNum, jdbcType=INTEGER}
+		  and bno > 0
+		  
+		  )
+		where rn > (#{page, jdbcType=INTEGER} -1) * #{perPageNum, jdbcType=INTEGER}
+		order by bno desc, regdate desc
+		 ]]>
 		
 <!-- 		<![CDATA[ -->
 <!-- 		select  -->
@@ -86,7 +102,19 @@
 <!-- 		where -->
 <!-- 			bno > 0 -->
 <!-- 			]]> -->
-<!-- 	</select> -->
+	</select>
+	
+	<select id="countPaging" resultType="int">
+	 <![CDATA[
+		select 
+			count(bno) 
+		from 
+			tbl_board
+		where 
+			bno > 0 
+		 ]]>
+	
+	</select>
 	
 	</mapper>
 	

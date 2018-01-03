@@ -7,13 +7,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.coo.domain.BoardVO;
+import com.coo.domain.Criteria;
+import com.coo.domain.PageMaker;
 import com.coo.service.BoardService;
 
 /**
@@ -59,8 +61,22 @@ public class BoardController {
 
 	}
 	
+	@RequestMapping(value = "/listPage", method = RequestMethod.GET)
+	public void listPage(Criteria cri, Model model) throws Exception{
+		logger.info("페이징처리된 리스트페이지!!!");
+		logger.info(cri.toString());
+		
+		model.addAttribute("list",service.listCriteria(cri));
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		//pageMaker.setTotalCount(131);
+		pageMaker.setTotalCount(service.countPaing(cri));
+		model.addAttribute("pageMaker",pageMaker);
+	}
+
+	
 	@GetMapping("/view")
-	public void read( @RequestParam("bno") int bno, Model model) throws Exception{
+	public void read( @RequestParam("bno") int bno, @ModelAttribute("cri")Criteria cri, Model model) throws Exception{
 		logger.info("veiw page");
 		
 		//model에 아무런 이름없이 데이터를 넣으면 자동으로 클래스의 이름을 소문자로 시작해서 사용. BoardVO => boardVO로 저장됨!
